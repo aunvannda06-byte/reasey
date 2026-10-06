@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="km">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ហោរាសាស្ត្រខ្មែរ AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@400;600;800&family=Moul&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b1a3a;--blue:#1d3f8f;--gold:#c9a24a;--gold2:#e6c878;--bg:#f7f3ea;--card:#fff;--tx:#14213d;--mut:#667;--bd:#e9e2d0}
+[data-t=dark]{--bg:#0a1228;--card:#121f40;--tx:#f3efe2;--mut:#a9b3cf;--bd:#243158}
+*{box-sizing:border-box}body{margin:0;font-family:"Noto Sans Khmer",sans-serif;background:var(--bg);color:var(--tx);line-height:1.8;font-size:17px}
+header{flex-wrap:wrap;position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:12px;padding:8px 16px}
+.logo{font-family:Moul;color:var(--navy);font-size:17px;cursor:pointer;flex:1}[data-t=dark] .logo{color:var(--gold2)}
+button{font-family:inherit;cursor:pointer}
+.btn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#2a1f05;border:0;border-radius:12px;padding:10px 20px;font-weight:700;font-size:16px}
+.btn.o{background:none;border:1px solid var(--gold);color:var(--tx)}.ic{background:none;border:1px solid var(--bd);border-radius:50%;width:40px;height:40px;color:var(--tx)}
+.hero{background:linear-gradient(180deg,#0b1a3a,#1d3f8f 140%);color:#fff;padding:40px 16px 90px;text-align:center;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(1.5px 1.5px at 20% 30%,#fff8,transparent),radial-gradient(1.5px 1.5px at 70% 20%,#fff8,transparent),radial-gradient(2px 2px at 85% 60%,#e6c878aa,transparent),radial-gradient(1.5px 1.5px at 40% 75%,#fff6,transparent)}
+.hero h1{font-family:Moul;font-weight:400;font-size:clamp(28px,6vw,48px);margin:0 0 8px;position:relative}.hero h2{color:var(--gold2);font-size:clamp(17px,3vw,24px);margin:0 0 6px;position:relative}.hero p{opacity:.85;margin:0;position:relative}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px 100px}
+.box{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px;box-shadow:0 6px 24px #0b1a3a14}
+.formbox{margin:-60px auto 24px;position:relative;z-index:2;max-width:760px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
+label{font-size:14px;color:var(--mut);display:block}input,select,textarea{width:100%;font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.fc{text-align:center;cursor:pointer;padding:16px 8px;transition:.2s}.fc:hover{transform:translateY(-3px);border-color:var(--gold)}.fc b{display:block;font-size:30px}.fc span{font-weight:600;font-size:15px}
+h3{font-family:Moul;font-weight:400;color:var(--blue);margin:24px 0 10px}[data-t=dark] h3{color:var(--gold2)}
+.scores{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}.sc{text-align:center}.bar{height:8px;background:var(--bd);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.chips span{display:inline-block;background:#c9a24a22;border:1px solid var(--gold);border-radius:999px;padding:0 14px;margin:3px;font-weight:700}
+.ai h2,.ai h4{font-size:18px;color:var(--blue);margin:14px 0 2px}[data-t=dark] .ai h2,[data-t=dark] .ai h4{color:var(--gold2)}.ai ul{margin:4px 0;padding-left:22px}
+.sk{height:16px;border-radius:8px;margin:10px 0;background:linear-gradient(90deg,var(--bd),#fff3,var(--bd));background-size:200%;animation:sh 1.2s infinite}@keyframes sh{to{background-position:-200%}}
+.err{color:#b3261e;background:#b3261e14;padding:12px;border-radius:10px}.disc{font-size:14px;color:var(--mut);border-top:1px dashed var(--bd);margin-top:14px;padding-top:8px}
+nav.b{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--bd);display:flex;justify-content:space-around;padding:6px 0;z-index:20}
+nav.b button{background:none;border:0;color:var(--tx);font-size:12px;line-height:1.3}nav.b b{display:block;font-size:20px}
+.chat{display:flex;flex-direction:column;gap:10px;min-height:320px;max-height:55vh;overflow:auto;padding:4px}
+.m{padding:10px 14px;border-radius:16px;max-width:88%}.m.u{align-self:flex-end;background:var(--navy);color:#fff}.m.a{align-self:flex-start;background:var(--bg);border:1px solid var(--bd)}
+.fab{position:fixed;right:16px;bottom:18px;z-index:25;width:56px;height:56px;border-radius:50%;border:0;font-size:24px;background:linear-gradient(135deg,var(--gold),var(--gold2));box-shadow:0 6px 20px #0006}
+.hide{display:none!important}.top{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo" onclick="go('home')">☯ ហោរាសាស្ត្រខ្មែរ AI</div>
+  <input id="q" placeholder="ស្វែងរក..." style="max-width:200px" oninput="search(this.value)">
+  <button class="ic" onclick="theme()" aria-label="ងងឹត/ភ្លឺ">🌓</button><button class="btn o" id="ab" onclick="adminUI()" style="display:none;padding:6px 12px">⚙️ Admin</button><button class="btn" id="lb" onclick="loginUI()" style="padding:6px 14px">👤 ចូលប្រើ</button>
+</header>
+
+<section class="hero" id="hero">
+  <h1>ហោរាសាស្ត្រខ្មែរ</h1>
+  <h2>ទស្សន៍ទាយ អនាគត រកឃើញផ្លូវជីវិត</h2>
+  <p>ការណែនាំតាមប្រពៃណីខ្មែរ ជាមួយបញ្ញាសិប្បនិម្មិត</p>
+</section>
+
+<main class="wrap">
+  <div class="box formbox" id="pf">
+    <b>បញ្ចូលព័ត៌មានកំណើតរបស់អ្នក</b>
+    <div class="row">
+      <div><label>ថ្ងៃ</label><select id="d"></select></div>
+      <div><label>ខែ</label><select id="mo"></select></div>
+      <div><label>ឆ្នាំ</label><select id="y"></select></div>
+      <div><label>ភេទ (មិនចាំបាច់)</label><select id="g"><option value="">—</option><option>ប្រុស</option><option>ស្រី</option></select></div>
+      <div><label>ម៉ោងកំណើត (មិនចាំបាច់)</label><input type="time" id="tm"></div>
+      <div><label>ទីកន្លែងកំណើត (មិនចាំបាច់)</label><input id="pl" placeholder="ភ្នំពេញ"></div>
+    </div>
+    <button class="btn" onclick="saveProfile()">✨ មើលរាសីដោយ AI</button>
+  </div>
+
+  <div id="dash" class="hide"></div>
+
+  <div id="tool" class="hide"></div>
+
+  <h3 id="ft">មុខងារទាំងអស់</h3>
+  <div class="grid" id="feat"></div>
+
+  <div id="chatbox" class="box hide" style="margin-top:24px">
+    <b>💬 AI Chat — សួរអ្វីក៏បាន</b>
+    <div class="chat" id="chat"><div class="m a">សួស្តី! សួរខ្ញុំអំពីរាសី សុបិន ថ្ងៃល្អ ឬការសម្រេចចិត្តសំខាន់ៗ។</div></div>
+    <div class="top"><input id="ci" placeholder="វាយសំណួរជាភាសាខ្មែរ..." style="flex:1" onkeydown="if(event.key==='Enter')send()"><button class="btn" onclick="send()">ផ្ញើ</button></div>
+    <div class="disc">ព័ត៌មាននេះត្រូវបានបង្កើតដោយ AI ដែលពេលខ្លះអាចមានកំហុស ហើយមិនគួរជឿជាក់ខ្លាំងពេកទេ។</div>
+  </div>
+<div class="disc" style="text-align:center;margin-top:30px">⚠️ ព័ត៌មានទាំងអស់ត្រូវបានបង្កើតដោយ AI ដែលពេលខ្លះអាចមានកំហុស និងមិនគួរជឿជាក់ខ្លាំងពេកទេ។ សូមប្រើជាការពិចារណាប៉ុណ្ណោះ។</div>
+</main>
+
+<button class="fab" onclick="go('chat')" aria-label="AI Chat">💬</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const ANIM=["ស្វា","មាន់","ឆ្កែ","ជ្រូក","កណ្ដុរ","គោ","ខ្លា","ទន្សាយ","នាគ","ពស់","សេះ","ពពែ"];
+const EMO=["🐒","🐓","🐕","🐖","🐀","🐂","🐅","🐇","🐉","🐍","🐎","🐐"];
+const MONTHS=["មករា","កុម្ភៈ","មីនា","មេសា","ឧសភា","មិថុនា","កក្កដា","សីហា","កញ្ញា","តុលា","វិច្ឆិកា","ធ្នូ"];
+const DIRS=["ខាងជើង","ខាងត្បូង","ខាងកើត","ខាងលិច","ឦសាន","អាគ្នេយ៍","និរតី","ពាយ័ព្យ"];
+const TYPES=[["☀️","រាសីថ្ងៃនេះ","today"],["🌗","រាសីប្រចាំខែ","month"],["🌟","រាសីប្រចាំឆ្នាំ","year"],["🌙","ការយល់សប្តិ","dream"],["✈️","ការធ្វើដំណើរ","travel"],["🍀","លេខនាំសំណាង","luck"],["🏠","ទិញផ្ទះ និងដី","house"],["🚗","ទិញឡាន/យានយន្ត","car"],["🏪","បើកអាជីវកម្ម","biz"],["💰","រកស៊ី","trade"],["🧭","ហុងស៊ុយ រៀបចំផ្ទះ","feng"],["❤️","ស្នេហា ភាពសមគ្នា","love"],["💼","ការងារ Career","career"],["🐉","ឆ្នាំឆុង","chuong"],["📅","ប្រតិទិនថ្ងៃល្អ","cal"],["💬","AI Chat","chat"]];
+const dirOpts=DIRS, day=()=>new Date().toLocaleDateString("km-KH",{day:"numeric",month:"long",year:"numeric"});
+// tool config: fields + prompt builder
+const T={
+today:{f:[],p:()=>`ផ្តល់រាសីថ្ងៃនេះ (${day()}) ជាផ្នែក: ស្នេហា ការងារ ហិរញ្ញវត្ថុ សុខភាព គ្រួសារ ឱកាស អ្វីដែលគួរប្រុងប្រយ័ត្ន និងសារសំខាន់មួយ។`},
+month:{f:[],p:()=>`ផ្តល់រាសីប្រចាំខែនេះ: ទូទៅ ការងារ លុយ ស្នេហា អាជីវកម្ម គ្រួសារ ថ្ងៃសំខាន់ ថ្ងៃសំណាង និងថ្ងៃគួរប្រុងប្រយ័ត្ន។`},
+year:{f:[],p:()=>`ផ្តល់រាសីប្រចាំឆ្នាំនេះ: ឱកាស បញ្ហាប្រឈម ការងារ លុយ ស្នេហា អាជីវកម្ម គ្រួសារ ដំណើរ និងខែសំខាន់ៗ។`},
+dream:{f:[["dream","សុបិនរបស់អ្នក","text","យប់មិញខ្ញុំសុបិនឃើញ..."],["cat","ប្រភេទ","sel",["សុបិនល្អ","សុបិនគួរប្រុងប្រយ័ត្ន","សុបិនអំពីមនុស្ស","សុបិនអំពីសត្វ","សុបិនអំពីទឹក","សុបិនអំពីលុយ","សុបិនអំពីផ្ទះ","សុបិនអំពីការធ្វើដំណើរ"]]],p:v=>`ប្រភេទ៖ ${v.cat}។ សុបិន៖ "${v.dream}"។ បកស្រាយជា: អត្ថន័យទូទៅ អត្ថន័យល្អ អ្វីដែលគួរប្រុងប្រយ័ត្ន តើគួរធ្វើអ្វី និងលេខ/និមិត្តសញ្ញាពាក់ព័ន្ធ (បើសមរម្យ)។`},
+travel:{f:[["date","ថ្ងៃចេញដំណើរ","date"],["time","ពេលវេលា","time"],["dir","ទិសដៅ","sel",DIRS]],p:v=>`ចេញដំណើរថ្ងៃ ${v.date} ម៉ោង ${v.time} ទៅទិស ${v.dir}។ ផ្តល់: ថ្ងៃល្អ/មិនសូវល្អ ពេលសមរម្យ ទិសដៅ និងអ្វីគួរប្រុងប្រយ័ត្ន។`},
+luck:{f:[],p:()=>`ផ្តល់លេខនាំសំណាង ជាបញ្ជីច្បាស់លាស់៖ ## លេខថ្ងៃនេះ (៥ លេខ) ## លេខប្រចាំសប្តាហ៍ (៥ លេខ) ## លេខប្រចាំខែ (៥ លេខ) ## ពណ៌សំណាង ## ទិសសំណាង ## ម៉ោងសំណាង។`},
+house:{f:[["date","ថ្ងៃគ្រោងទិញ","date"],["dir","ទិសផ្ទះ","sel",DIRS],["kind","ប្រភេទអចលនទ្រព្យ","sel",["ផ្ទះ","ដី","ផ្ទះល្វែង","អាគារ"]]],p:v=>`គ្រោងទិញ ${v.kind} ថ្ងៃ ${v.date} ទិស ${v.dir}។ ផ្តល់: ថ្ងៃសមរម្យ ពេលវេលា ទិសគាំទ្រ និងអ្វីគួរប្រុងប្រយ័ត្ន។`},
+car:{f:[["date","ថ្ងៃទិញ","date"],["kind","ប្រភេទយានយន្ត","sel",["ឡាន","ម៉ូតូ","ឡានដឹកទំនិញ"]],["color","ពណ៌","text","ស/ខ្មៅ/ក្រហម..."],["plate","លេខផ្លាក (មិនចាំបាច់)","text",""]],p:v=>`ទិញ ${v.kind} ពណ៌ ${v.color} ថ្ងៃ ${v.date} ផ្លាក ${v.plate||"មិនមាន"}។ ផ្តល់: ថ្ងៃល្អ ពេលល្អ ពណ៌សម លេខសម ទិសធ្វើដំណើរដំបូង និងការប្រុងប្រយ័ត្ន។`},
+biz:{f:[["kind","ប្រភេទអាជីវកម្ម","text","ហាងកាហ្វេ"],["date","ថ្ងៃគ្រោងបើក","date"],["name","ឈ្មោះអាជីវកម្ម (មិនចាំបាច់)","text",""],["partner","ថ្ងៃកំណើតដៃគូ (មិនចាំបាច់)","date"]],p:v=>`បើកអាជីវកម្ម "${v.kind}" ឈ្មោះ ${v.name||"-"} ថ្ងៃ ${v.date}។ ដៃគូកើត ${v.partner||"គ្មាន"}។ ផ្តល់: ថ្ងៃបើកសមរម្យ ពេលវេលា ប្រភេទអាជីវកម្មសមនឹងរាសី ភាពសមគ្នាដៃគូ និងការប្រុងប្រយ័ត្ន។`},
+trade:{f:[],p:()=>`ផ្តល់រាសីរកស៊ីថ្ងៃនេះ: ឱកាស ហានិភ័យ ការចរចា ការលក់ ការទិញ ដៃគូ លុយចូល/ចេញ និងសកម្មភាពណែនាំ។`},
+feng:{f:[["dir","ទិសផ្ទះ","sel",DIRS],["door","ច្រកចូល","text","ខាងមុខ/ចំហៀង"],["room","បន្ទប់ដែលចង់រៀបចំ","sel",["បន្ទប់គេង","បន្ទប់ទទួលភ្ញៀវ","តុធ្វើការ","ផ្ទះបាយ","ច្រកចូល"]]],p:v=>`ហុងស៊ុយ៖ ផ្ទះទិស ${v.dir} ច្រកចូល ${v.door} ចង់រៀបចំ ${v.room}។ ផ្តល់ការណែនាំប្រពៃណីអំពី ទិស ពណ៌ កន្លែងដាក់តុ/គ្រែ និងបរិយាកាស។ បញ្ជាក់ថាមិនមែនវិទ្យាសាស្ត្រ។`},
+love:{f:[["partner","ថ្ងៃកំណើតមនុស្សម្នាក់ទៀត","date"]],p:v=>`ភាពសមគ្នាជាមួយអ្នកកើតថ្ងៃ ${v.partner} (ឆ្នាំ ${ANIM[new Date(v.partner).getFullYear()%12]})។ ផ្តល់: ភាពសមគ្នា ស្នេហា ទំនាក់ទំនង រស់នៅជាមួយគ្នា ចំណុចខ្លាំង និងចំណុចគួរយល់ចិត្តគ្នា។`},
+career:{f:[],p:()=>`ផ្តល់រាសីការងារ: ឱកាស ការផ្លាស់ប្តូរការងារ សម្ភាសន៍ ការឡើងតំណែង និងការចាប់ផ្តើមគម្រោងថ្មី។`},
+chuong:{f:[],p:()=>{const p=P();return`ផ្តល់ព័ត៌មាន: ឆ្នាំកំណើត សត្វតំណាង (${ANIM[p.y%12]}) ឆ្នាំឆុង (${ANIM[(p.y%12+6)%12]}) ឆ្នាំត្រូវប្រយ័ត្ន ឆ្នាំគាំទ្រ និងការណែនាំទូទៅ។ ឆ្នាំនេះគឺ ${new Date().getFullYear()}។`}},
+cal:{f:[["cat","ប្រភេទកិច្ចការ","sel",["រៀបការ","ផ្លាស់ផ្ទះ","ទិញផ្ទះ","ទិញឡាន","បើកអាជីវកម្ម","ធ្វើដំណើរ","ចុះកិច្ចសន្យា","ចាប់ផ្តើមការងារ"]],["month","ខែ","month"]],p:v=>`ប្រតិទិនថ្ងៃល្អសម្រាប់ "${v.cat}" ក្នុងខែ ${v.month}។ ចែកជា ថ្ងៃល្អ ថ្ងៃមធ្យម ថ្ងៃគួរប្រុងប្រយ័ត្ន ជាមួយកាលបរិច្ឆេទ។`}
+};
+function P(){try{return JSON.parse(localStorage.getItem("hp"))}catch(e){return null}}
+function init(){
+ $("d").innerHTML=[...Array(31)].map((_,i)=>`<option>${i+1}</option>`).join("");
+ $("mo").innerHTML=MONTHS.map((m,i)=>`<option value="${i+1}">${m}</option>`).join("");
+ const Y=new Date().getFullYear();$("y").innerHTML=[...Array(100)].map((_,i)=>`<option>${Y-i}</option>`).join("");$("y").value=1990;
+ $("feat").innerHTML=TYPES.map(t=>`<div class="box fc" data-s="${t[1]}" onclick="open_('${t[2]}')"><b>${t[0]}</b><span>${t[1]}</span></div>`).join("");
+ if(localStorage.th==="dark")document.documentElement.dataset.t="dark";
+ if(P())showDash();
+}
+function saveProfile(){
+ const p={d:+$("d").value,m:+$("mo").value,y:+$("y").value,g:$("g").value,t:$("tm").value,pl:$("pl").value};
+ localStorage.hp=JSON.stringify(p);showDash();run("today");
+}
+const seed=s=>{let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))>>>0;return()=>(h=(h*1664525+1013904223)>>>0)/4294967296};
+function showDash(){
+ const i=info(),p=i.p;
+ $("pf").classList.add("hide");$("dash").classList.remove("hide");$("hero").style.paddingBottom="50px";
+ $("dash").innerHTML=`<div class="box" style="margin-top:-30px;position:relative"><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center">
+ <div><b style="font-size:22px">${i.em} ឆ្នាំ${i.animal} · ធាតុ${i.elem}</b><br><span style="color:var(--mut)">កើត ${p.d} ${MONTHS[p.m-1]} ${p.y}${p.g?" · "+p.g:""}</span></div>
+ <div class="chips"><span>${i.ze} តារានិករ ${i.z}</span><span>🎂 អាយុ ${i.age} ឆ្នាំ ${i.mo} ខែ</span><span>⚠️ ឆុង ${i.chuong}</span></div>
+ <button class="btn o" onclick="localStorage.removeItem('hp');location.reload()">កែព័ត៌មាន</button></div></div>`;
+}
+function go(w){
+ ["tool"].forEach(i=>$(i).classList.add("hide"));
+ if(w==="chat"){if(!S.tok){showContact("AI Chat មិនអាចប្រើប្រាស់បានទេ សូមទំនាក់ទំនង Admin ដើម្បីទទួលបានគណនី។");return}$("chatbox").classList.remove("hide");$("chatbox").scrollIntoView({behavior:"smooth"})}
+ else{scrollTo({top:0,behavior:"smooth"})}
+}
+function open_(k){
+ if(k==="chat")return go("chat");
+ if(NEEDP.includes(k)&&!P()){needProfile();return}
+ const t=T[k];
+ if(!t.f.length)return run(k);
+ const inp=t.f.map(([id,l,ty,o])=>`<div><label>${l}</label>${ty==="sel"?`<select id="f_${id}">${o.map(x=>`<option>${x}</option>`).join("")}</select>`:ty==="text"&&o!==undefined&&id==="dream"?`<textarea id="f_${id}" rows="4" placeholder="${o}"></textarea>`:ty==="month"?`<select id="f_${id}">${MONTHS.map(x=>`<option>${x}</option>`).join("")}</select>`:`<input id="f_${id}" type="${ty}" placeholder="${o||""}">`}</div>`).join("");
+ $("tool").classList.remove("hide");
+ $("tool").innerHTML=`<div class="box"><b>${TYPES.find(x=>x[2]===k)[1]}</b><div class="row">${inp}</div><button class="btn" onclick="run('${k}')">✨ សួរ AI</button><div id="out"></div></div>`;
+ $("tool").scrollIntoView({behavior:"smooth"});
+}
+const ZOD=[["មករា",1,19],["កុម្ភៈ",2,18],["មីនា",3,20],["មេសា",4,19],["ឧសភា",5,20],["មិថុនា",6,20],["កក្កដា",7,22],["សីហា",8,22],["កញ្ញា",9,22],["តុលា",10,22],["វិច្ឆិកា",11,21],["ធ្នូ",12,21]];
+const ZN=["មករ (Capricorn)","កុម្ភ (Aquarius)","មីន (Pisces)","មេស (Aries)","ព្រឹស្ភ (Taurus)","មិថុន (Gemini)","កក្កដ (Cancer)","សីហ (Leo)","កន្យា (Virgo)","តុល (Libra)","វិច្ឆិកា (Scorpio)","ធនូ (Sagittarius)"];
+const ZE=["♑","♒","♓","♈","♉","♊","♋","♌","♍","♎","♏","♐"];
+const ELEM=["ដែក","ដែក","ទឹក","ទឹក","ឈើ","ឈើ","ភ្លើង","ភ្លើង","ដី","ដី"];
+function info(){const p=P(),n=new Date();
+ const cut=[[1,20,1],[2,19,2],[3,21,3],[4,20,4],[5,21,5],[6,21,6],[7,23,7],[8,23,8],[9,23,9],[10,23,10],[11,22,11],[12,22,0]];
+ let z=0;for(const c of cut){if(p.m>c[0]||(p.m===c[0]&&p.d>=c[1]))z=c[2]}
+ if(p.m===1&&p.d<20)z=0;
+ let age=n.getFullYear()-p.y,mo=n.getMonth()+1-p.m,dd=n.getDate()-p.d;
+ if(dd<0){mo--}if(mo<0){age--;mo+=12}
+ return{p,z:ZN[z],ze:ZE[z],age,mo,animal:ANIM[p.y%12],em:EMO[p.y%12],elem:ELEM[p.y%10],chuong:ANIM[(p.y%12+6)%12],now:ANIM[n.getFullYear()%12]}}
+function ctx(){if(!P())return"អ្នកប្រើមិនទាន់បញ្ចូលថ្ងៃកំណើតទេ សូមផ្តល់ការណែនាំទូទៅ។ ថ្ងៃនេះ "+day()+"។";const i=info(),p=i.p;return`ទិន្នន័យហោរាសាស្ត្រទាំងអស់របស់អ្នកប្រើ: កើតថ្ងៃទី ${p.d} ខែ ${MONTHS[p.m-1]} ឆ្នាំ ${p.y} · អាយុ ${i.age} ឆ្នាំ ${i.mo} ខែ · តារានិករ (រាសីចក្រ) ${i.z} · ឆ្នាំ${i.animal} ធាតុ${i.elem} · ឆ្នាំឆុងជាមួយឆ្នាំ${i.chuong} · ឆ្នាំនេះជាឆ្នាំ${i.now}${p.g?" · ភេទ"+p.g:""}${p.t?" · ម៉ោងកំណើត "+p.t:""}${p.pl?" · កើតនៅ "+p.pl:""} · ថ្ងៃនេះ ${day()}។ សូមវិភាគដោយផ្អែកលើទិន្នន័យទាំងអស់នេះរួមគ្នា (តារានិករ ឆ្នាំសត្វ ធាតុ អាយុ ឆ្នាំឆុង និងថ្ងៃបច្ចុប្បន្ន) ហើយប្រាប់ឱ្យច្បាស់ថាចំណុចណាមកពីប្រព័ន្ធណា។`}
+async function run(k){
+ if(NEEDP.includes(k)&&!P()){needProfile();return}
+ const t=T[k],v={};t.f.forEach(([id])=>v[id]=$("f_"+id)?.value||"");
+ if(!t.f.length||!$("out")||$("tool").classList.contains("hide")){$("tool").classList.remove("hide");$("tool").innerHTML=`<div class="box"><b>${TYPES.find(x=>x[2]===k)[1]}</b><div id="out"></div></div>`}
+ $("out").innerHTML='<div class="sk"></div><div class="sk" style="width:80%"></div><div class="sk" style="width:60%"></div>';
+ $("tool").scrollIntoView({behavior:"smooth"});
+ try{const d=await ask([{role:"user",text:ctx()+" "+t.p(v)}],k),txt=d.text;
+  $("out").innerHTML=`<div class="ai">${md(txt)}</div>${badge(d)}<div class="top"><button class="btn o" onclick="cp()">📋 ចម្លង</button><button class="btn o" onclick="sh()">↗ ចែករំលែក</button><button class="btn o" onclick="fav(this)">☆ រក្សាទុក</button></div><div class="disc">ព័ត៌មាននេះត្រូវបានបង្កើតដោយ AI ដែលពេលខ្លះអាចមានកំហុស ហើយមិនគួរជឿជាក់ខ្លាំងពេកទេ។ សូមប្រើជាគំនិតពិចារណាប៉ុណ្ណោះ ហើយសម្រេចចិត្តសំខាន់ៗដោយផ្អែកលើការពិត និងអ្នកជំនាញ។</div>`}
+ catch(e){$("out").innerHTML=`<div class="err">⚠️ ${esc(e.message)}</div>`+(e.contact?`<div class="top"><button class="btn" onclick="showContact()">📞 ទំនាក់ទំនង Admin</button></div>`:`<button class="btn o" onclick="run('${k}')">ព្យាយាមម្តងទៀត</button>`);if(e.contact)showContact(e.message)}
+}
+async function ask(messages,feature){
+ const r=await fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json",...(S.tok?{Authorization:"Bearer "+S.tok}:{})},body:JSON.stringify({messages,feature,deviceId:DEV})});
+ const d=await r.json().catch(()=>({}));
+ if(d.logout)logout(true);
+ if(r.status===404)throw new Error("រកមិនឃើញ Function (ត្រូវមាន netlify/functions/api.mjs)");
+ if(!r.ok){const e=new Error(d.error||"មានបញ្ហា សូមព្យាយាមម្តងទៀត");e.contact=!!d.contact;throw e}return d;
+}
+const md=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").split("\n").map(l=>l.startsWith("## ")?`<h2>${l.slice(3)}</h2>`:l.startsWith("### ")?`<h4>${l.slice(4)}</h4>`:/^[-*] /.test(l)?`<ul><li>${l.slice(2)}</li></ul>`:l.trim()?`<p style="margin:4px 0">${l}</p>`:"").join("").replace(/<\/ul><ul>/g,"").replace(/\*\*(.+?)\*\*/g,"<b>$1</b>");
+const cp=()=>navigator.clipboard.writeText($("out").innerText).then(()=>alert("បានចម្លង"));
+const sh=()=>navigator.share?navigator.share({title:"ហោរាសាស្ត្រខ្មែរ AI",text:$("out").innerText.slice(0,500)}):cp();
+function fav(b){const a=JSON.parse(localStorage.fav||"[]");a.push({t:Date.now(),x:$("out").innerText});localStorage.fav=JSON.stringify(a);b.textContent="★ បានរក្សាទុក"}
+const hist=[];
+async function send(){
+ if(!S.tok){showContact("AI Chat មិនអាចប្រើប្រាស់បានទេ សូមទំនាក់ទំនង Admin ដើម្បីទទួលបានគណនី។");return}
+ const v=$("ci").value.trim();if(!v)return;$("ci").value="";
+ if(!hist.length&&P())hist.push({role:"user",text:ctx()},{role:"model",text:"យល់ព្រម។"});
+ hist.push({role:"user",text:v});add("u",v);const w=add("a",'<div class="sk"></div>');
+ try{const t=(await ask(hist,"chat")).text;hist.push({role:"model",text:t});w.innerHTML=md(t)}
+ catch(e){w.innerHTML=`<span class="err">⚠️ ${esc(e.message)}</span>`;hist.pop();if(e.contact)showContact(e.message)}
+ $("chat").scrollTop=1e9;
+}
+function add(c,h){const e=document.createElement("div");e.className="m "+c;e.innerHTML=c==="u"?h.replace(/</g,"&lt;"):h;$("chat").append(e);$("chat").scrollTop=1e9;return e}
+function search(v){document.querySelectorAll("#feat .fc").forEach(e=>e.style.display=e.dataset.s.includes(v)?"":"none")}
+function theme(){const d=document.documentElement;d.dataset.t=d.dataset.t==="dark"?"":"dark";localStorage.th=d.dataset.t}
+const S={tok:localStorage.tok||"",role:localStorage.role||"",name:localStorage.nm||""};
+const DEV=localStorage.dev||(localStorage.dev=(crypto.randomUUID?crypto.randomUUID():String(Math.random()).slice(2)));
+const esc=x=>String(x??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const badge=d=>`<div class="disc">${d.unlimited?"✅ គណនីប្រើគ្មានដែនកំណត់":"នៅសល់ "+d.remaining+"/"+(d.limit||3)+" ដងសម្រាប់ថ្ងៃនេះ (សរុបគ្រប់មុខងារ)"}</div>`;
+function modal(h){$("mb").innerHTML=h;$("md").classList.remove("hide")}function closeM(){$("md").classList.add("hide")}
+function renderAuth(){$("lb").textContent=S.tok?"ចាកចេញ ("+(S.name||"")+")":"👤 ចូលប្រើ";$("ab").style.display=S.role==="admin"?"":"none"}
+function logout(silent){$("chatbox").classList.add("hide");S.tok=S.role=S.name="";localStorage.removeItem("tok");localStorage.removeItem("role");localStorage.removeItem("nm");renderAuth();if(!silent)closeM()}
+function loginUI(){
+ if(S.tok){if(confirm("ចាកចេញពីគណនី?"))logout();return}
+ modal(`<b>ចូលប្រើគណនី</b><p style="color:var(--mut);margin:4px 0">សម្រាប់អ្នកប្រើដែល Admin បានបង្កើតគណនីឱ្យ (ប្រើគ្មានដែនកំណត់)។</p>
+ <label>ឈ្មោះគណនី</label><input id="lu" autocomplete="username"><label>ពាក្យសម្ងាត់</label><input id="lp" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+ <div id="le"></div><div class="top"><button class="btn" onclick="doLogin()">ចូល</button><button class="btn o" onclick="closeM()">បិទ</button></div>`);
+}
+async function doLogin(){
+ try{const r=await fetch("/api/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:$("lu").value,password:$("lp").value})});
+ const d=await r.json();if(!r.ok)throw new Error(d.error);
+ S.tok=d.token;S.role=d.role;S.name=d.name;localStorage.tok=d.token;localStorage.role=d.role;localStorage.nm=d.name;renderAuth();closeM()}
+ catch(e){$("le").innerHTML=`<div class="err" style="margin-top:8px">⚠️ ${esc(e.message)}</div>`}
+}
+async function adm(body){const r=await fetch("/api/admin",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+S.tok},body:JSON.stringify(body)});const d=await r.json();if(!r.ok)throw new Error(d.error);return d}
+async function adminUI(){
+ modal(`<b>⚙️ Admin — គ្រប់គ្រងគណនីអ្នកប្រើ</b>
+ <div class="row"><div><label>ឈ្មោះបង្ហាញ</label><input id="an"></div><div><label>ឈ្មោះគណនី (a-z, 0-9)</label><input id="au"></div><div><label>ពាក្យសម្ងាត់ (≥៦តួ)</label><input id="ap"></div></div>
+ <div class="top"><button class="btn" onclick="admCreate()">➕ បង្កើត / ប្តូរពាក្យសម្ងាត់</button><button class="btn o" onclick="closeM()">បិទ</button></div><div id="ae"></div><div id="al" style="margin-top:10px"></div>`);
+ admList();
+}
+async function admList(){
+ try{const d=await adm({action:"list"});$("al").innerHTML=d.users.length?d.users.map(u=>`<div style="display:flex;gap:6px;align-items:center;justify-content:space-between;border-top:1px solid var(--bd);padding:6px 0;flex-wrap:wrap"><span><b>${esc(u.name||u.username)}</b> <small>(${esc(u.username)})</small> ${u.active?"✅":"⛔ បិទ"}</span><span><button class="btn o" style="padding:4px 10px" onclick="admDo('toggle','${esc(u.username)}')">${u.active?"បិទ":"បើក"}</button> <button class="btn o" style="padding:4px 10px" onclick="admDo('delete','${esc(u.username)}')">លុប</button></span></div>`).join(""):"<small>មិនទាន់មានគណនីអ្នកប្រើទេ</small>"}
+ catch(e){$("al").innerHTML=`<div class="err">⚠️ ${esc(e.message)}</div>`}
+}
+async function admCreate(){try{await adm({action:"create",name:$("an").value,username:$("au").value,password:$("ap").value});$("ae").innerHTML='<p>✅ រួចរាល់</p>';$("au").value=$("ap").value=$("an").value="";admList()}catch(e){$("ae").innerHTML=`<div class="err">⚠️ ${esc(e.message)}</div>`}}
+async function admDo(a,u){if(a==="delete"&&!confirm("លុបគណនី "+u+"?"))return;try{await adm({action:a,username:u});admList()}catch(e){alert(e.message)}}
+const NEEDP=["today","month","year","chuong","love","career"];
+function needProfile(){modal(`<b>សូមបញ្ចូលថ្ងៃកំណើតជាមុន</b><p>មុខងារនេះត្រូវការថ្ងៃ ខែ ឆ្នាំកំណើតរបស់អ្នក ដើម្បីវិភាគឱ្យត្រឹមត្រូវ។</p><div class="top"><button class="btn" onclick="closeM();$('pf').scrollIntoView({behavior:'smooth'})">បញ្ចូលព័ត៌មាន</button></div>`)}
+function showContact(msg){modal(`<div style="text-align:center"><div style="font-size:40px">🔒</div><b style="font-size:19px">${esc(msg||"សូមទំនាក់ទំនង Admin ដើម្បីទទួលបានគណនីប្រើគ្មានដែនកំណត់។")}</b></div>
+ <div class="box" style="margin:14px 0;background:var(--bg)"><div style="color:var(--gold);font-weight:700">Admin</div><b>លោក អូន វណ្ណដា</b><br><small style="color:var(--mut)">អនុប្រធាននាយកដ្ឋានធនធានមនុស្ស ក្រសួងការបរទស និងសហប្រតិបត្តិការអន្តរជាតិ</small>
+ <p style="margin:10px 0 0">✉️ <a href="mailto:aunvannda01@gmail.com">aunvannda01@gmail.com</a><br>📞 <a href="tel:+855968471250">(+855) 968 471 250</a><br>✈️ <a href="https://t.me/+855968471250" target="_blank" rel="noopener">Telegram</a></p></div>
+ <div class="top" style="justify-content:center"><button class="btn" onclick="closeM()">យល់ព្រម</button><button class="btn o" onclick="closeM();loginUI()">👤 ចូលប្រើគណនី</button></div>`)}
+init();renderAuth();
+</script>
+<div id="md" class="hide" style="position:fixed;inset:0;background:#000a;z-index:50;display:flex;align-items:center;justify-content:center;padding:12px" onclick="if(event.target===this)closeM()"><div class="box" id="mb" style="width:100%;max-width:520px;max-height:90vh;overflow:auto"></div></div>
+</body>
+</html>
