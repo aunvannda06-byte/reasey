@@ -16,7 +16,7 @@ exports.handler = async (event) => {
       role: m.role === "user" ? "user" : "model",
       parts: [{ text: String(m.text).slice(0, 4000) }],
     }));
-    const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+    const model = process.env.GEMINI_MODEL || "gemini-3.8-flash";
     const r = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
       {
